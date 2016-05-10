@@ -4,7 +4,7 @@
 #include "linear_program.h"
 
 int main() {
-    LP1 P = read_LP();
+    LP P = read_LP();
     Matrix mtr = solve(P);
 
     if(mtr != NULL) {

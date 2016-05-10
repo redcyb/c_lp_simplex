@@ -51,7 +51,7 @@ void destroy_constraint(Constraint con) {
     free(con);
 }
 
-void destroy_LP(LP1 P) {
+void destroy_LP(LP P) {
     int i = 0;
     for (i; i < P->num_constraints; i++) {
         destroy_constraint(P->constraint[i]);
@@ -64,8 +64,8 @@ void destroy_LP(LP1 P) {
     destroy_matrix(P->c);
 }
 
-LP1 copy_LP(LP1 P) {
-    LP1 Q = malloc(sizeof(struct lp));
+LP copy_LP(LP P) {
+    LP Q = malloc(sizeof(struct lp));
     Q->A = copy_matrix(P->A);
     Q->b = copy_matrix(P->b);
     Q->c = copy_matrix(P->c);
@@ -74,7 +74,7 @@ LP1 copy_LP(LP1 P) {
     return Q;
 }
 
-void canonical_form(LP1 P, int *B) {
+void canonical_form(LP P, int *B) {
     Matrix A_B = take_columns(P->A, B, P->A->rows);
     invert(A_B);
     Matrix A_BT = copy_matrix(A_B);
@@ -132,7 +132,7 @@ bool basis(Matrix mtr, int *B, int sn, int sm, int n, int m) {
     return false;
 }
 
-simp simplex(LP1 P, int *B) {
+simp simplex(LP P, int *B) {
     canonical_form(P, B);
 
 //    printf("First Simplex :: \n");
@@ -167,7 +167,7 @@ simp simplex(LP1 P, int *B) {
     return simplex(P, B);
 }
 
-void cast_to_SF(LP1 P) {
+void cast_to_SF(LP P) {
     assert(!P->is_SF);
 
     if (!P->obj_max) {
@@ -226,7 +226,7 @@ void cast_to_SF(LP1 P) {
 }
 
 // P must be in canonical form for basis B
-Matrix basic_solution(LP1 P, int *B) {
+Matrix basic_solution(LP P, int *B) {
     Matrix x = create_matrix(P->A->cols, 1);
     int i = 0;
     for (i; i < P->A->rows; i++) {
@@ -235,10 +235,10 @@ Matrix basic_solution(LP1 P, int *B) {
     return x;
 }
 
-Matrix solve(LP1 P) {
+Matrix solve(LP P) {
     assert(!P->is_SF);
     cast_to_SF(P);
-    LP1 Q = copy_LP(P);
+    LP Q = copy_LP(P);
     Matrix im = create_identity(P->num_constraints);
     join_right(Q->A, im);
     destroy_matrix(im);
@@ -286,8 +286,8 @@ Matrix solve(LP1 P) {
     return rx;
 }
 
-LP1 read_LP() {
-    LP1 P = malloc(sizeof(struct lp));
+LP read_LP() {
+    LP P = malloc(sizeof(struct lp));
 
     P->is_SF = false;
     P->z = 0;
@@ -360,7 +360,7 @@ LP1 read_LP() {
     return P;
 }
 
-void print_LP(LP1 P) {
+void print_LP(LP P) {
     if (P->obj_max)
         printf("max");
     else

@@ -5,18 +5,14 @@
 
 struct lp;
 
-typedef struct lp * LP1;
+typedef struct lp *LP;
 
-Matrix solve(LP1 p);
+Matrix solve(LP p);
 
-LP1 read_LP();
+LP read_LP();
 
-void print_LP(LP1 P);
+void print_LP(LP P);
 
-void destroy_LP(LP1 P);
-
-void vis_init(int *argc, char **argv);
-
-void visualize(LP1 P);
+void destroy_LP(LP P);
 
 #endif
