@@ -8,12 +8,6 @@ struct matrix {
 
 typedef struct matrix * Matrix;
 
-/*
-   create_matrix
-   PRE: n, m > 0
-   POST: produces a Matrix
-   create_matrix(n, m) creates an n*m zero matrix
-*/
 Matrix create_matrix(int n, int m);
 
 void set_data(Matrix mtr, double **data);

@@ -7,6 +7,8 @@ int main() {
     LP P = read_LP();
     Matrix mtr = solve(P);
 
+    printf("\n=== RESULT ===\n\n");
+
     if(mtr != NULL) {
         print_matrix(mtr);
         destroy_matrix(mtr);
@@ -14,7 +16,7 @@ int main() {
     else
         printf("\nAnswer is NULL\n");
 
-    printf("Press Any Key to exit the program");
+    printf("=== Press any key to exit the program ===\n");
     getch();
     destroy_LP(P);
 

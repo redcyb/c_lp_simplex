@@ -314,7 +314,7 @@ LP read_LP() {
     printf("\nNum of constraints: ");
     scanf("%d", &P->num_constraints);
 
-    printf("\nEnter constraints:\n");
+    printf("\nEnter constraints:\n\n");
     P->constraint = malloc(sizeof(struct constraint *) * P->num_constraints);
 
     i = 0;
@@ -341,22 +341,23 @@ LP read_LP() {
     }
 
     // read in which vars >= 0
-    printf("Vars gte 0 from: %d\n", P->variables);
+    printf("Vars constraints type: \n");
 
     P->ge0 = malloc(sizeof(bool) * P->variables);
     i = 0;
 
     for (i; i < P->variables; i++) {
-//        int g0 = 1;
-//        scanf("%d", &g0);
-//        if (g0 == 0) {
-//            P->ge0[i] = false;
-//            P->num_not_ge0++;
-//        }
-//        else
-
-        P->ge0[i] = true;
+        printf("X%d (> is for >=0, < is for <=0): ", i+1);
+        char t[3];
+        scanf("%s", t);
+        if (t[0] == '<') {
+            P->ge0[i] = false;
+            P->num_not_ge0++;
+        }
+        else P->ge0[i] = true;
     }
+
+    printf("\n");
     return P;
 }
 
